@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "dev",
+    "password": "admin",
+    "database": "expense_tracker",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "dev",
+    "password": "admin",
+    "database": "expense_tracker",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "production": {
+    "username": "dev",
+    "password": "admin",
+    "database": "expense_tracker",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  }
+}
