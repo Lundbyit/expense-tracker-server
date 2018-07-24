@@ -25,13 +25,16 @@ module.exports = (sequelize, DataTypes) => {
         },
         {
             hooks: {
-                beforeCreate: (user) => {
-                    const salt = bcrypt.genSaltSync();
-                    user.password = bcrypt.hashSync(user.password, salt);
+                beforeCreate: user => {
+                    user.password = hashPassword(user.password);
+                },
+                beforeUpdate: user => {
+                    user.password = hashPassword(user.password);
                 }
             },
             instanceMethods: {
-                validPassword: (password) => bcrypt.compareSync(password, this.password)
+                validPassword: password =>
+                    bcrypt.compareSync(password, this.password)
             }
         }
     );
@@ -42,15 +45,12 @@ module.exports = (sequelize, DataTypes) => {
         });
         User.hasMany(models.Transaction, {
             onDelete: 'cascade'
-        })
+        });
     };
     return User;
 };
 
-const hashPassword = (user, options, callback) => {
-    bcrypt.hash(user.get('password'), 10, (err, hash) => {
-        if (err) return callback(err);
-        user.set('password', hash);
-        return callback(null, options);
-    });
+const hashPassword = password => {
+    const salt = bcrypt.genSaltSync();
+    return bcrypt.hashSync(password, salt);
 };

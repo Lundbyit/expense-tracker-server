@@ -12,10 +12,10 @@ module.exports = (sequelize, DataTypes) => {
     );
     Category.associate = function(models) {
         Category.hasMany(models.Transaction, {
-            foreignKey: 'transactionId',
+            foreignKey: 'transactionId'
         });
         Category.belongsTo(models.User, {
-            foreignKey: 'userId'
+            foreignKey: 'UserId'
         });
     };
     return Category;
